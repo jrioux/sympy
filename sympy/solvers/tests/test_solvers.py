@@ -305,10 +305,11 @@ def test_tsolve():
         log(y/2 + sqrt(y**2 - 4)/2),
     ]), set([
         log(y - sqrt(y**2 - 4)) - log(2),
-        log(y + sqrt(y**2 - 4)) - log(2)]),
-    set([
+        log(y + sqrt(y**2 - 4)) - log(2)
+    ]), set([
         log(y/2 - sqrt((y - 2)*(y + 2))/2),
-        log(y/2 + sqrt((y - 2)*(y + 2))/2)])]
+        log(y/2 + sqrt((y - 2)*(y + 2))/2)
+    ])]
     assert solve(exp(x) - 3, x) == [log(3)]
     assert solve(Eq(exp(x), 3), x) == [log(3)]
     assert solve(log(x) - 3, x) == [exp(3)]
@@ -796,7 +797,7 @@ def test_unrad():
         set([i.n(chop=True) for i in (ra, rb)])
 
     raises(ValueError, lambda:
-        unrad(-root(x,3)**2 + 2**pi*root(x,3) - x + 2**pi))
+        unrad(-root(x, 3)**2 + 2**pi*root(x, 3) - x + 2**pi))
     raises(ValueError, lambda:
         unrad(sqrt(x) + sqrt(x + 1) + sqrt(1 - sqrt(x)) + 3))
     raises(ValueError, lambda:
@@ -1093,12 +1094,14 @@ def test_issue_2957():
         -log(2)/2 + log(1 - I),
         -log(2)/2 + log(-1 - I),
         -log(2)/2 + log(1 + I),
-        -log(2)/2 + log(-1 + I),])
+        -log(2)/2 + log(-1 + I),
+    ])
     assert set([simplify(w) for w in solve((tanh(x + 3)*tanh(x - 3) + 1)**2)]) == set([
         -log(2)/2 + log(1 - I),
         -log(2)/2 + log(-1 - I),
         -log(2)/2 + log(1 + I),
-        -log(2)/2 + log(-1 + I),])
+        -log(2)/2 + log(-1 + I),
+    ])
 
 
 def test_issue_2961():
@@ -1216,9 +1219,9 @@ def test__ispow():
 
 
 def test_issue_3545():
-    eq = -sqrt((m - q)**2 + (-m/(2*q) + S(1)/2)**2) + sqrt((-m**2/2 - sqrt(
-    4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4)**2 + (m**2/2 - m - sqrt(
-    4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4)**2)
+    eq = -sqrt((m - q)**2 + (-m/(2*q) + S(1)/2)**2) + \
+        sqrt((-m**2/2 - sqrt(4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4)**2 +
+        (m**2/2 - m - sqrt(4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4)**2)
     assert solve(eq, q) == [
         m**2/2 - sqrt(4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4,
         m**2/2 + sqrt(4*m**4 - 4*m**2 + 8*m + 1)/4 - S(1)/4]
@@ -1231,9 +1234,9 @@ def test_issue_3653():
 
 def test_issue_3693():
     assert solve(x*(x - 1)**2*(x + 1)*(x**6 - x + 1)) == [
-    -1, 0, 1, RootOf(x**6 - x + 1, 0), RootOf(x**6 - x + 1, 1),
-    RootOf(x**6 - x + 1, 2), RootOf(x**6 - x + 1, 3), RootOf(x**6 - x + 1, 4),
-    RootOf(x**6 - x + 1, 5)]
+        -1, 0, 1, RootOf(x**6 - x + 1, 0), RootOf(x**6 - x + 1, 1),
+        RootOf(x**6 - x + 1, 2), RootOf(x**6 - x + 1, 3), RootOf(x**6 - x + 1, 4),
+        RootOf(x**6 - x + 1, 5)]
 
 
 def test_issues_3720_3721_3722_3149():
@@ -1275,9 +1278,9 @@ def test_lambert_multivariate():
     assert _lambert(x, x) == []
     assert solve((x**2 - 2*x + 1).subs(x, log(x) + 3*x)) == [LambertW(3*S.Exp1)/3]
     assert solve((x**2 - 2*x + 1).subs(x, (log(x) + 3*x)**2 - 1)) == \
-          [LambertW(3*exp(-sqrt(2)))/3, LambertW(3*exp(sqrt(2)))/3]
+        [LambertW(3*exp(-sqrt(2)))/3, LambertW(3*exp(sqrt(2)))/3]
     assert solve((x**2 - 2*x - 2).subs(x, log(x) + 3*x)) == \
-          [LambertW(3*exp(1 + sqrt(3)))/3, LambertW(3*exp(-sqrt(3) + 1))/3]
+        [LambertW(3*exp(1 + sqrt(3)))/3, LambertW(3*exp(-sqrt(3) + 1))/3]
     assert solve(x*log(x) + 3*x + 1, x) == [exp(-3 + LambertW(-exp(3)))]
     eq = (x*exp(x) - 3).subs(x, x*exp(x))
     assert solve(eq) == [LambertW(3*exp(-LambertW(3)))]
@@ -1291,7 +1294,7 @@ def test_lambert_multivariate():
     assert solve(3*log(p**(3*x + 5)) + p**(3*x + 5), x) == [
         log((-3**(S(1)/3) - 3**(S(5)/6)*I)*LambertW(S(1)/3)**(S(1)/3)/(2*p**(S(5)/3)))/log(p),
         log((-3**(S(1)/3) + 3**(S(5)/6)*I)*LambertW(S(1)/3)**(S(1)/3)/(2*p**(S(5)/3)))/log(p),
-        log((3*LambertW(S(1)/3)/p**5)**(1/(3*log(p)))),]  # checked numerically
+        log((3*LambertW(S(1)/3)/p**5)**(1/(3*log(p))))]  # checked numerically
     # check collection
     assert solve(3*log(a**(3*x + 5)) + b*log(a**(3*x + 5)) + a**(3*x + 5), x) == [
         -((log(a**5) + LambertW(1/(b + 3)))/(3*log(a)))]
@@ -1370,4 +1373,4 @@ def test_misc():
     assert solve(sinh(x)*sinh(sinh(x)) + cosh(x)*cosh(sinh(x)) - 3) is not None
 
     # watch out for recursive loop in tsolve
-    raises(NotImplementedError, lambda: solve((x+2)**y*x-3,x))
+    raises(NotImplementedError, lambda: solve((x + 2)**y*x - 3, x))
