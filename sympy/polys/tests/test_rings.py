@@ -79,7 +79,7 @@ def test_PolyRing_ring_new():
     assert R.ring_new([((2, 0, 0), 1), ((1, 1, 0), 2), ((1, 0, 0), 3), ((0, 0, 2), 4), ((0, 0, 1), 5), ((0, 0, 0), 6)]) == f
 
 def test_PolyRing_drop():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R.drop(x) == PolyRing("y,z", ZZ, lex)
     assert R.drop(y) == PolyRing("x,z", ZZ, lex)
@@ -99,7 +99,7 @@ def test_PolyRing_drop():
     raises(ValueError, lambda: R.drop(x).drop(y))
 
 def test_PolyRing___getitem__():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R[0:] == PolyRing("x,y,z", ZZ, lex)
     assert R[1:] == PolyRing("y,z", ZZ, lex)
@@ -158,36 +158,36 @@ def test_PolyElement___hash__():
 def test_PolyElement___eq__():
     R, x, y = ring("x,y", ZZ, lex)
 
-    assert ((x*y + 5*x*y) == 6) == False
-    assert ((x*y + 5*x*y) == 6*x*y) == True
-    assert (6 == (x*y + 5*x*y)) == False
-    assert (6*x*y == (x*y + 5*x*y)) == True
+    assert ((x*y + 5*x*y) == 6) is False
+    assert ((x*y + 5*x*y) == 6*x*y) is True
+    assert (6 == (x*y + 5*x*y)) is False
+    assert (6*x*y == (x*y + 5*x*y)) is True
 
-    assert ((x*y - x*y) == 0) == True
-    assert (0 == (x*y - x*y)) == True
+    assert ((x*y - x*y) == 0) is True
+    assert (0 == (x*y - x*y)) is True
 
-    assert ((x*y - x*y) == 1) == False
-    assert (1 == (x*y - x*y)) == False
+    assert ((x*y - x*y) == 1) is False
+    assert (1 == (x*y - x*y)) is False
 
-    assert ((x*y - x*y) == 1) == False
-    assert (1 == (x*y - x*y)) == False
+    assert ((x*y - x*y) == 1) is False
+    assert (1 == (x*y - x*y)) is False
 
-    assert ((x*y + 5*x*y) != 6) == True
-    assert ((x*y + 5*x*y) != 6*x*y) == False
-    assert (6 != (x*y + 5*x*y)) == True
-    assert (6*x*y != (x*y + 5*x*y)) == False
+    assert ((x*y + 5*x*y) != 6) is True
+    assert ((x*y + 5*x*y) != 6*x*y) is False
+    assert (6 != (x*y + 5*x*y)) is True
+    assert (6*x*y != (x*y + 5*x*y)) is False
 
-    assert ((x*y - x*y) != 0) == False
-    assert (0 != (x*y - x*y)) == False
+    assert ((x*y - x*y) != 0) is False
+    assert (0 != (x*y - x*y)) is False
 
-    assert ((x*y - x*y) != 1) == True
-    assert (1 != (x*y - x*y)) == True
+    assert ((x*y - x*y) != 1) is True
+    assert (1 != (x*y - x*y)) is True
 
     Rt, t = ring("t", ZZ)
     R, x, y = ring("x,y", Rt)
 
-    assert (t**3*x/x == t**3) == True
-    assert (t**3*x/x == t**4) == False
+    assert (t**3*x/x == t**3) is True
+    assert (t**3*x/x == t**4) is False
 
 def test_PolyElement__lt_le_gt_ge__():
     R, x, y = ring("x,y", ZZ)
@@ -250,7 +250,7 @@ def test_PolyElement_from_expr():
     raises(ValueError, lambda: R.from_expr(7*x + sqrt(2)))
 
 def test_PolyElement_degree():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R(0).degree() == -1
     assert R(1).degree() == 0
@@ -281,7 +281,7 @@ def test_PolyElement_degree():
     assert (7*x**5*y**3 + z).degree(z) == 1
 
 def test_PolyElement_tail_degree():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R(0).tail_degree() == -1
     assert R(1).tail_degree() == 0
@@ -312,14 +312,14 @@ def test_PolyElement_tail_degree():
     assert (7*x**5*y**3 + x**3*z).tail_degree(z) == 0
 
 def test_PolyElement_degrees():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R(0).degrees() == (-1, -1, -1)
     assert R(1).degrees() == (0, 0, 0)
     assert (x**2*y + x**3*z**2).degrees() == (3, 1, 2)
 
 def test_PolyElement_tail_degrees():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R(0).tail_degrees() == (-1, -1, -1)
     assert R(1).tail_degrees() == (0, 0, 0)
@@ -347,79 +347,79 @@ def test_PolyElement_coeff():
 def test_PolyElement_LC():
     R, x, y = ring("x,y", QQ, lex)
     assert R(0).LC == QQ(0)
-    assert (QQ(1,2)*x).LC == QQ(1, 2)
-    assert (QQ(1,4)*x*y + QQ(1,2)*x).LC == QQ(1, 4)
+    assert (QQ(1, 2)*x).LC == QQ(1, 2)
+    assert (QQ(1, 4)*x*y + QQ(1, 2)*x).LC == QQ(1, 4)
 
 def test_PolyElement_LM():
     R, x, y = ring("x,y", QQ, lex)
     assert R(0).LM == (0, 0)
-    assert (QQ(1,2)*x).LM == (1, 0)
-    assert (QQ(1,4)*x*y + QQ(1,2)*x).LM == (1, 1)
+    assert (QQ(1, 2)*x).LM == (1, 0)
+    assert (QQ(1, 4)*x*y + QQ(1, 2)*x).LM == (1, 1)
 
 def test_PolyElement_LT():
     R, x, y = ring("x,y", QQ, lex)
     assert R(0).LT == ((0, 0), QQ(0))
-    assert (QQ(1,2)*x).LT == ((1, 0), QQ(1, 2))
-    assert (QQ(1,4)*x*y + QQ(1,2)*x).LT == ((1, 1), QQ(1, 4))
+    assert (QQ(1, 2)*x).LT == ((1, 0), QQ(1, 2))
+    assert (QQ(1, 4)*x*y + QQ(1, 2)*x).LT == ((1, 1), QQ(1, 4))
 
 def test_PolyElement_leading_monom():
     R, x, y = ring("x,y", QQ, lex)
     assert R(0).leading_monom() == 0
-    assert (QQ(1,2)*x).leading_monom() == x
-    assert (QQ(1,4)*x*y + QQ(1,2)*x).leading_monom() == x*y
+    assert (QQ(1, 2)*x).leading_monom() == x
+    assert (QQ(1, 4)*x*y + QQ(1, 2)*x).leading_monom() == x*y
 
 def test_PolyElement_leading_term():
     R, x, y = ring("x,y", QQ, lex)
     assert R(0).leading_term() == 0
-    assert (QQ(1,2)*x).leading_term() == QQ(1,2)*x
-    assert (QQ(1,4)*x*y + QQ(1,2)*x).leading_term() == QQ(1,4)*x*y
+    assert (QQ(1, 2)*x).leading_term() == QQ(1, 2)*x
+    assert (QQ(1, 4)*x*y + QQ(1, 2)*x).leading_term() == QQ(1, 4)*x*y
 
 def test_PolyElement_terms():
-    R, x,y,z = ring("x,y,z", QQ)
+    R, x, y, z = ring("x,y,z", QQ)
     terms = (x**2/3 + y**3/4 + z**4/5).terms()
-    assert terms == [((2,0,0), QQ(1,3)), ((0,3,0), QQ(1,4)), ((0,0,4), QQ(1,5))]
+    assert terms == [((2, 0, 0), QQ(1, 3)), ((0, 3, 0), QQ(1, 4)), ((0, 0, 4), QQ(1, 5))]
 
-    R, x,y = ring("x,y", ZZ, lex)
+    R, x, y = ring("x,y", ZZ, lex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.terms() == f.terms(lex) == f.terms('lex') == [((2, 3), 2), ((1, 7), 1)]
     assert f.terms(grlex) == f.terms('grlex') == [((1, 7), 1), ((2, 3), 2)]
 
-    R, x,y = ring("x,y", ZZ, grlex)
+    R, x, y = ring("x,y", ZZ, grlex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.terms() == f.terms(grlex) == f.terms('grlex') == [((1, 7), 1), ((2, 3), 2)]
     assert f.terms(lex) == f.terms('lex') == [((2, 3), 2), ((1, 7), 1)]
 
 def test_PolyElement_monoms():
-    R, x,y,z = ring("x,y,z", QQ)
+    R, x, y, z = ring("x,y,z", QQ)
     monoms = (x**2/3 + y**3/4 + z**4/5).monoms()
-    assert monoms == [(2,0,0), (0,3,0), (0,0,4)]
+    assert monoms == [(2, 0, 0), (0, 3, 0), (0, 0, 4)]
 
-    R, x,y = ring("x,y", ZZ, lex)
+    R, x, y = ring("x,y", ZZ, lex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.monoms() == f.monoms(lex) == f.monoms('lex') == [(2, 3), (1, 7)]
     assert f.monoms(grlex) == f.monoms('grlex') == [(1, 7), (2, 3)]
 
-    R, x,y = ring("x,y", ZZ, grlex)
+    R, x, y = ring("x,y", ZZ, grlex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.monoms() == f.monoms(grlex) == f.monoms('grlex') == [(1, 7), (2, 3)]
     assert f.monoms(lex) == f.monoms('lex') == [(2, 3), (1, 7)]
 
 def test_PolyElement_coeffs():
-    R, x,y,z = ring("x,y,z", QQ)
+    R, x, y, z = ring("x,y,z", QQ)
     coeffs = (x**2/3 + y**3/4 + z**4/5).coeffs()
-    assert coeffs == [QQ(1,3), QQ(1,4), QQ(1,5)]
+    assert coeffs == [QQ(1, 3), QQ(1, 4), QQ(1, 5)]
 
-    R, x,y = ring("x,y", ZZ, lex)
+    R, x, y = ring("x,y", ZZ, lex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.coeffs() == f.coeffs(lex) == f.coeffs('lex') == [2, 1]
     assert f.coeffs(grlex) == f.coeffs('grlex') == [1, 2]
 
-    R, x,y = ring("x,y", ZZ, grlex)
+    R, x, y = ring("x,y", ZZ, grlex)
     f = x*y**7 + 2*x**2*y**3
 
     assert f.coeffs() == f.coeffs(grlex) == f.coeffs('grlex') == [1, 2]
@@ -427,8 +427,8 @@ def test_PolyElement_coeffs():
 
 def test_PolyElement___add__():
     Rt, t = ring("t", ZZ)
-    Ruv, u,v = ring("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Ruv)
+    Ruv, u, v = ring("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Ruv)
 
     assert dict(x + 3*y) == {(1, 0, 0): 1, (0, 1, 0): 3}
 
@@ -445,19 +445,19 @@ def test_PolyElement___add__():
     raises(TypeError, lambda: t + u)
     raises(TypeError, lambda: u + t)
 
-    Fuv, u,v = field("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Fuv)
+    Fuv, u, v = field("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Fuv)
 
     assert dict(u + x) == dict(x + u) == {(1, 0, 0): 1, (0, 0, 0): u}
 
-    Rxyz, x,y,z = ring("x,y,z", EX)
+    Rxyz, x, y, z = ring("x,y,z", EX)
 
     assert dict(EX(pi) + x*y*z) == dict(x*y*z + EX(pi)) == {(1, 1, 1): EX(1), (0, 0, 0): EX(pi)}
 
 def test_PolyElement___sub__():
     Rt, t = ring("t", ZZ)
-    Ruv, u,v = ring("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Ruv)
+    Ruv, u, v = ring("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Ruv)
 
     assert dict(x - 3*y) == {(1, 0, 0): 1, (0, 1, 0): -3}
 
@@ -474,19 +474,19 @@ def test_PolyElement___sub__():
     raises(TypeError, lambda: t - u)
     raises(TypeError, lambda: u - t)
 
-    Fuv, u,v = field("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Fuv)
+    Fuv, u, v = field("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Fuv)
 
     assert dict(-u + x) == dict(x - u) == {(1, 0, 0): 1, (0, 0, 0): -u}
 
-    Rxyz, x,y,z = ring("x,y,z", EX)
+    Rxyz, x, y, z = ring("x,y,z", EX)
 
     assert dict(-EX(pi) + x*y*z) == dict(x*y*z - EX(pi)) == {(1, 1, 1): EX(1), (0, 0, 0): -EX(pi)}
 
 def test_PolyElement___mul__():
     Rt, t = ring("t", ZZ)
-    Ruv, u,v = ring("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Ruv)
+    Ruv, u, v = ring("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Ruv)
 
     assert dict(u*x) == dict(x*u) == {(1, 0, 0): u}
 
@@ -512,17 +512,17 @@ def test_PolyElement___mul__():
     raises(TypeError, lambda: t*u + z)
     raises(TypeError, lambda: u*t + z)
 
-    Fuv, u,v = field("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Fuv)
+    Fuv, u, v = field("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Fuv)
 
     assert dict(u*x) == dict(x*u) == {(1, 0, 0): u}
 
-    Rxyz, x,y,z = ring("x,y,z", EX)
+    Rxyz, x, y, z = ring("x,y,z", EX)
 
     assert dict(EX(pi)*x*y*z) == dict(x*y*z*EX(pi)) == {(1, 1, 1): EX(pi)}
 
 def test_PolyElement___div__():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert (2*x**2 - 4)/2 == x**2 - 2
     assert (2*x**2 - 3)/2 == x**2
@@ -533,15 +533,15 @@ def test_PolyElement___div__():
     assert (x**2 - 1)/(2*x) == (x**2 - 1).quo(2*x) == 0
     assert (x**2 - x)/(x - 1) == (x**2 - x).quo(x - 1) == x
 
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
     assert len((x**2/3 + y**3/4 + z**4/5).terms()) == 0
 
-    R, x,y,z = ring("x,y,z", QQ)
+    R, x, y, z = ring("x,y,z", QQ)
     assert len((x**2/3 + y**3/4 + z**4/5).terms()) == 3
 
     Rt, t = ring("t", ZZ)
-    Ruv, u,v = ring("u,v", ZZ)
-    Rxyz, x,y,z = ring("x,y,z", Ruv)
+    Ruv, u, v = ring("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Ruv)
 
     assert dict((u**2*x + u)/u) == {(1, 0, 0): u, (0, 0, 0): 1}
     raises(TypeError, lambda: u/(u**2*x + u))
@@ -625,7 +625,7 @@ def test_PolyElement___div__():
     assert f.quo(g) == f / g == q
     raises(ExactQuotientFailed, lambda: f.exquo(g))
 
-    R, x,y = ring("x,y", ZZ)
+    R, x, y = ring("x,y", ZZ)
 
     f, g = x**2 - y**2, x - y
     q, r = x + y, R(0)
@@ -659,7 +659,7 @@ def test_PolyElement___div__():
     assert f.quo(g) == f / g == q
     raises(ExactQuotientFailed, lambda: f.exquo(g))
 
-    R, x,y = ring("x,y", QQ)
+    R, x, y = ring("x,y", QQ)
 
     f, g = x**2 - y**2, x - y
     q, r = x + y, R(0)
@@ -707,7 +707,7 @@ def test_PolyElement___pow__():
 
     raises(ValueError, lambda: f**-2)
 
-    R, x,y,z = ring("x,y,z", ZZ, grlex)
+    R, x, y, z = ring("x,y,z", ZZ, grlex)
     f = x**3*y - 2*x*y**2 - 3*z + 1
     g = x**6*y**2 - 4*x**4*y**3 - 6*x**3*y*z + 2*x**3*y + 4*x**2*y**4 + 12*x*y**2*z - 4*x*y**2 + 9*z**2 - 6*z + 1
 
@@ -716,8 +716,8 @@ def test_PolyElement___pow__():
     R, t = ring("t", ZZ)
     f = -11200*t**4 - 2604*t**2 + 49
     g = 15735193600000000*t**16 + 14633730048000000*t**14 + 4828147466240000*t**12 \
-      + 598976863027200*t**10 + 3130812416256*t**8 - 2620523775744*t**6 \
-      + 92413760096*t**4 - 1225431984*t**2 + 5764801
+        + 598976863027200*t**10 + 3130812416256*t**8 - 2620523775744*t**6 \
+        + 92413760096*t**4 - 1225431984*t**2 + 5764801
 
     assert f**4 == f._pow_generic(4) == f._pow_multinomial(4) == g
 
@@ -738,9 +738,9 @@ def test_PolyElement_div():
 
     R, x = ring("x", QQ, grlex)
     f = x**2 + 2*x + 2
-    assert f.div([R(2)]) == ([QQ(1,2)*x**2 + x + 1], 0)
+    assert f.div([R(2)]) == ([QQ(1, 2)*x**2 + x + 1], 0)
 
-    R, x,y = ring("x,y", ZZ, grlex)
+    R, x, y = ring("x,y", ZZ, grlex)
     f = 4*x**2*y - 2*x*y + 4*x - 2*y + 8
 
     assert f.div([R(2)]) == ([2*x**2*y - x*y + 2*x - y + 4], 0)
@@ -783,7 +783,7 @@ def test_PolyElement_rem():
 
     assert f.rem([g]) == f.div([g])[1] == r
 
-    R, x,y = ring("x,y", ZZ, grlex)
+    R, x, y = ring("x,y", ZZ, grlex)
 
     f = 4*x**2*y - 2*x*y + 4*x - 2*y + 8
 
@@ -817,7 +817,7 @@ def test_PolyElement_deflate():
 
     assert (2*x**2).deflate(x**4 + 4*x**2 + 1) == ((2,), [2*x, x**2 + 4*x + 1])
 
-    R, x,y = ring("x,y", ZZ)
+    R, x, y = ring("x,y", ZZ)
 
     assert R(0).deflate(R(0)) == ((1, 1), [0, 0])
     assert R(1).deflate(R(0)) == ((1, 1), [1, 0])
@@ -833,16 +833,16 @@ def test_PolyElement_deflate():
     assert f.deflate(g) == ((2, 1), [x**2*y**2 + x*y + 1, x*y**3 + x*y + 1])
 
 def test_PolyElement_clear_denoms():
-    R, x,y = ring("x,y", QQ)
+    R, x, y = ring("x,y", QQ)
 
     assert R(1).clear_denoms() == (ZZ(1), 1)
     assert R(7).clear_denoms() == (ZZ(1), 7)
 
-    assert R(QQ(7,3)).clear_denoms() == (3, 7)
-    assert R(QQ(7,3)).clear_denoms() == (3, 7)
+    assert R(QQ(7, 3)).clear_denoms() == (3, 7)
+    assert R(QQ(7, 3)).clear_denoms() == (3, 7)
 
     assert (3*x**2 + x).clear_denoms() == (1, 3*x**2 + x)
-    assert (x**2 + QQ(1,2)*x).clear_denoms() == (2, 2*x**2 + x)
+    assert (x**2 + QQ(1, 2)*x).clear_denoms() == (2, 2*x**2 + x)
 
 def test_PolyElement_cofactors():
     R, x, y = ring("x,y", ZZ)
@@ -908,13 +908,13 @@ def test_PolyElement_cofactors():
 
     R, x, y = ring("x,y", QQ)
 
-    f = QQ(1,2)*x**2 + x + QQ(1,2)
-    g = QQ(1,2)*x + QQ(1,2)
+    f = QQ(1, 2)*x**2 + x + QQ(1, 2)
+    g = QQ(1, 2)*x + QQ(1, 2)
 
     h = x + 1
 
-    assert f.cofactors(g) == (h, g, QQ(1,2))
-    assert g.cofactors(f) == (h, QQ(1,2), g)
+    assert f.cofactors(g) == (h, g, QQ(1, 2))
+    assert g.cofactors(f) == (h, QQ(1, 2), g)
 
     R, x, y = ring("x,y", RR)
 
@@ -928,8 +928,8 @@ def test_PolyElement_cofactors():
 def test_PolyElement_gcd():
     R, x, y = ring("x,y", QQ)
 
-    f = QQ(1,2)*x**2 + x + QQ(1,2)
-    g = QQ(1,2)*x + QQ(1,2)
+    f = QQ(1, 2)*x**2 + x + QQ(1, 2)
+    g = QQ(1, 2)*x + QQ(1, 2)
 
     assert f.gcd(g) == x + 1
 
@@ -948,8 +948,8 @@ def test_PolyElement_cancel():
 
     R, x, y = ring("x,y", QQ)
 
-    f = QQ(1,2)*x**3 + x**2 + QQ(1,2)*x
-    g = QQ(1,3)*x**2 + QQ(1,3)*x
+    f = QQ(1, 2)*x**3 + x**2 + QQ(1, 2)*x
+    g = QQ(1, 3)*x**2 + QQ(1, 3)*x
     F = 3*x + 3
     G = 2
 
@@ -985,11 +985,11 @@ def test_PolyElement_l1_norm():
 def test_PolyElement_diff():
     R, X = xring("x:11", QQ)
 
-    f = QQ(288,5)*X[0]**8*X[1]**6*X[4]**3*X[10]**2 + 8*X[0]**2*X[2]**3*X[4]**3 +2*X[0]**2 - 2*X[1]**2
+    f = QQ(288, 5)*X[0]**8*X[1]**6*X[4]**3*X[10]**2 + 8*X[0]**2*X[2]**3*X[4]**3 + 2*X[0]**2 - 2*X[1]**2
 
-    assert f.diff(X[0]) == QQ(2304,5)*X[0]**7*X[1]**6*X[4]**3*X[10]**2 + 16*X[0]*X[2]**3*X[4]**3 + 4*X[0]
-    assert f.diff(X[4]) == QQ(864,5)*X[0]**8*X[1]**6*X[4]**2*X[10]**2 + 24*X[0]**2*X[2]**3*X[4]**2
-    assert f.diff(X[10]) == QQ(576,5)*X[0]**8*X[1]**6*X[4]**3*X[10]
+    assert f.diff(X[0]) == QQ(2304, 5)*X[0]**7*X[1]**6*X[4]**3*X[10]**2 + 16*X[0]*X[2]**3*X[4]**3 + 4*X[0]
+    assert f.diff(X[4]) == QQ(864, 5)*X[0]**8*X[1]**6*X[4]**2*X[10]**2 + 24*X[0]**2*X[2]**3*X[4]**2
+    assert f.diff(X[10]) == QQ(576, 5)*X[0]**8*X[1]**6*X[4]**3*X[10]
 
 def test_PolyElement___call__():
     R, x = ring("x", ZZ)
@@ -1001,9 +1001,9 @@ def test_PolyElement___call__():
     raises(ValueError, lambda: f())
     raises(ValueError, lambda: f(0, 1))
 
-    raises(CoercionFailed, lambda: f(QQ(1,7)))
+    raises(CoercionFailed, lambda: f(QQ(1, 7)))
 
-    R, x,y = ring("x,y", ZZ)
+    R, x, y = ring("x,y", ZZ)
     f = 3*x + y**2 + 1
 
     f(0, 0) == 1
@@ -1017,9 +1017,9 @@ def test_PolyElement___call__():
     raises(ValueError, lambda: f())
     raises(ValueError, lambda: f(0, 1, 2))
 
-    raises(CoercionFailed, lambda: f(1, QQ(1,7)))
-    raises(CoercionFailed, lambda: f(QQ(1,7), 1))
-    raises(CoercionFailed, lambda: f(QQ(1,7), QQ(1,7)))
+    raises(CoercionFailed, lambda: f(1, QQ(1, 7)))
+    raises(CoercionFailed, lambda: f(QQ(1, 7), 1))
+    raises(CoercionFailed, lambda: f(QQ(1, 7), QQ(1, 7)))
 
 def test_PolyElement_evaluate():
     R, x = ring("x", ZZ)
@@ -1028,7 +1028,7 @@ def test_PolyElement_evaluate():
     r = f.evaluate(x, 0)
     assert r == 3 and not isinstance(r, PolyElement)
 
-    raises(CoercionFailed, lambda: f.evaluate(x, QQ(1,7)))
+    raises(CoercionFailed, lambda: f.evaluate(x, QQ(1, 7)))
 
     R, x, y, z = ring("x,y,z", ZZ)
     f = (x*y)**3 + 4*(x*y)**2 + 2*x*y + 3
@@ -1045,9 +1045,9 @@ def test_PolyElement_evaluate():
     r = f.evaluate([(x, 0), (y, 0), (z, 0)])
     assert r == 3 and not isinstance(r, PolyElement)
 
-    raises(CoercionFailed, lambda: f.evaluate([(x, 1), (y, QQ(1,7))]))
-    raises(CoercionFailed, lambda: f.evaluate([(x, QQ(1,7)), (y, 1)]))
-    raises(CoercionFailed, lambda: f.evaluate([(x, QQ(1,7)), (y, QQ(1,7))]))
+    raises(CoercionFailed, lambda: f.evaluate([(x, 1), (y, QQ(1, 7))]))
+    raises(CoercionFailed, lambda: f.evaluate([(x, QQ(1, 7)), (y, 1)]))
+    raises(CoercionFailed, lambda: f.evaluate([(x, QQ(1, 7)), (y, QQ(1, 7))]))
 
 def test_PolyElement_subs():
     R, x = ring("x", ZZ)
@@ -1056,7 +1056,7 @@ def test_PolyElement_subs():
     r = f.subs(x, 0)
     assert r == 3 and isinstance(r, R.dtype)
 
-    raises(CoercionFailed, lambda: f.subs(x, QQ(1,7)))
+    raises(CoercionFailed, lambda: f.subs(x, QQ(1, 7)))
 
     R, x, y, z = ring("x,y,z", ZZ)
     f = x**3 + 4*x**2 + 2*x + 3
@@ -1066,9 +1066,9 @@ def test_PolyElement_subs():
     r = f.subs([(x, 0), (y, 0)])
     assert r == 3 and isinstance(r, R.dtype)
 
-    raises(CoercionFailed, lambda: f.subs([(x, 1), (y, QQ(1,7))]))
-    raises(CoercionFailed, lambda: f.subs([(x, QQ(1,7)), (y, 1)]))
-    raises(CoercionFailed, lambda: f.subs([(x, QQ(1,7)), (y, QQ(1,7))]))
+    raises(CoercionFailed, lambda: f.subs([(x, 1), (y, QQ(1, 7))]))
+    raises(CoercionFailed, lambda: f.subs([(x, QQ(1, 7)), (y, 1)]))
+    raises(CoercionFailed, lambda: f.subs([(x, QQ(1, 7)), (y, QQ(1, 7))]))
 
 def test_PolyElement_compose():
     R, x = ring("x", ZZ)
@@ -1080,7 +1080,7 @@ def test_PolyElement_compose():
     assert f.compose(x, x) == f
     assert f.compose(x, x**2) == x**6 + 4*x**4 + 2*x**2 + 3
 
-    raises(CoercionFailed, lambda: f.compose(x, QQ(1,7)))
+    raises(CoercionFailed, lambda: f.compose(x, QQ(1, 7)))
 
     R, x, y, z = ring("x,y,z", ZZ)
     f = x**3 + 4*x**2 + 2*x + 3
@@ -1095,32 +1095,32 @@ def test_PolyElement_compose():
     assert r == q and isinstance(r, R.dtype)
 
 def test_PolyElement_is_():
-    R, x,y,z = ring("x,y,z", QQ)
+    R, x, y, z = ring("x,y,z", QQ)
 
-    assert (x - x).is_generator == False
-    assert (x - x).is_ground == True
-    assert (x - x).is_monomial == True
-    assert (x - x).is_term == True
+    assert (x - x).is_generator is False
+    assert (x - x).is_ground is True
+    assert (x - x).is_monomial is True
+    assert (x - x).is_term is True
 
-    assert (x - x + 1).is_generator == False
-    assert (x - x + 1).is_ground == True
-    assert (x - x + 1).is_monomial == True
-    assert (x - x + 1).is_term == True
+    assert (x - x + 1).is_generator is False
+    assert (x - x + 1).is_ground is True
+    assert (x - x + 1).is_monomial is True
+    assert (x - x + 1).is_term is True
 
-    assert x.is_generator == True
-    assert x.is_ground == False
-    assert x.is_monomial == True
-    assert x.is_term == True
+    assert x.is_generator is True
+    assert x.is_ground is False
+    assert x.is_monomial is True
+    assert x.is_term is True
 
-    assert (x*y).is_generator == False
-    assert (x*y).is_ground == False
-    assert (x*y).is_monomial == True
-    assert (x*y).is_term == True
+    assert (x*y).is_generator is False
+    assert (x*y).is_ground is False
+    assert (x*y).is_monomial is True
+    assert (x*y).is_term is True
 
-    assert (3*x).is_generator == False
-    assert (3*x).is_ground == False
-    assert (3*x).is_monomial == False
-    assert (3*x).is_term == True
+    assert (3*x).is_generator is False
+    assert (3*x).is_ground is False
+    assert (3*x).is_monomial is False
+    assert (3*x).is_term is True
 
     assert (3*x + 1).is_generator == False
     assert (3*x + 1).is_ground == False
@@ -1165,7 +1165,7 @@ def test_PolyElement_is_():
     raises(MultivariatePolynomialError, lambda: x.is_cyclotomic)
 
 def test_PolyElement_drop():
-    R, x,y,z = ring("x,y,z", ZZ)
+    R, x, y, z = ring("x,y,z", ZZ)
 
     assert R(1).drop(0).ring == PolyRing("y,z", ZZ, lex)
     assert R(1).drop(0).drop(0).ring == PolyRing("z", ZZ, lex)

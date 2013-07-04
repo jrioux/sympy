@@ -333,7 +333,7 @@ class PolyRing(DefaultPrinting, IPolys):
         return self.from_dict(dict(element))
 
     def from_list(self, element):
-        return self.from_dict(dmp_to_dict(element, self.ngens-1, self.domain))
+        return self.from_dict(dmp_to_dict(element, self.ngens - 1, self.domain))
 
     def _rebuild_expr(self, expr, mapping):
         domain = self.domain
@@ -644,10 +644,13 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
     def __lt__(p1, p2):
         return p1._cmp(p2, lt)
+
     def __le__(p1, p2):
         return p1._cmp(p2, le)
+
     def __gt__(p1, p2):
         return p1._cmp(p2, gt)
+
     def __ge__(p1, p2):
         return p1._cmp(p2, ge)
 
@@ -684,7 +687,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             return poly
 
     def to_dense(self):
-        return dmp_from_dict(self, self.ring.ngens-1, self.ring.domain)
+        return dmp_from_dict(self, self.ring.ngens - 1, self.ring.domain)
 
     def to_dict(self):
         return dict(self)
@@ -719,7 +722,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
                 exp = expv[i]
                 if not exp:
                     continue
-                symbol = printer.parenthesize(symbols[i], prec_atom-1)
+                symbol = printer.parenthesize(symbols[i], prec_atom - 1)
                 if exp != 1:
                     sexpv.append(exp_pattern % (symbol, exp))
                 else:
@@ -1333,7 +1336,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
                 else:
                     i += 1
             if not divoccurred:
-                expv =  p.leading_expv()
+                expv = p.leading_expv()
                 r = r._iadd_monom((expv, p[expv]))
                 del p[expv]
         if expv == ring.zero_monom:
@@ -2142,7 +2145,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             poly = ring.drop(x).zero
 
             for monom, coeff in f.iterterms():
-                n, monom = monom[i], monom[:i] + monom[i+1:]
+                n, monom = monom[i], monom[:i] + monom[i + 1:]
                 coeff = coeff*a**n
 
                 if monom in poly:
@@ -2179,7 +2182,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             poly = ring.zero
 
             for monom, coeff in f.iterterms():
-                n, monom = monom[i], monom[:i] + (0,) + monom[i+1:]
+                n, monom = monom[i], monom[:i] + (0,) + monom[i + 1:]
                 coeff = coeff*a**n
 
                 if monom in poly:
