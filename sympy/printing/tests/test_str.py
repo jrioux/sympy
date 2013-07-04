@@ -185,7 +185,7 @@ def test_Matrix_str():
     M = Matrix([[1]])
     assert str(M) == sstr(M) == "Matrix([[1]])"
     M = Matrix([[1, 2]])
-    assert str(M) == sstr(M) ==  "Matrix([[1, 2]])"
+    assert str(M) == sstr(M) == "Matrix([[1, 2]])"
     M = Matrix()
     assert str(M) == sstr(M) == "Matrix(0, 0, [])"
     M = Matrix(0, 1, lambda i, j: 0)
@@ -339,8 +339,8 @@ def test_FracField():
 
 
 def test_PolyElement():
-    Ruv, u,v = ring("u,v", ZZ);
-    Rxyz, x,y,z = ring("x,y,z", Ruv)
+    Ruv, u, v = ring("u,v", ZZ)
+    Rxyz, x, y, z = ring("x,y,z", Ruv)
 
     assert str(x - x) == "0"
     assert str(x - 1) == "x - 1"
@@ -356,8 +356,8 @@ def test_PolyElement():
 
 
 def test_FracElement():
-    Fuv, u,v = field("u,v", ZZ);
-    Fxyzt, x,y,z,t = field("x,y,z,t", Fuv)
+    Fuv, u, v = field("u,v", ZZ)
+    Fxyzt, x, y, z, t = field("x,y,z,t", Fuv)
 
     assert str(x - x) == "0"
     assert str(x - 1) == "x - 1"
