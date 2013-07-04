@@ -578,6 +578,7 @@ try:
         from subprocess import check_output
     except ImportError:
         from subprocess import check_call
+
         def check_output(*args, **kwargs):
             with open(os.devnull, 'w') as fh:
                 kwargs['stdout'] = fh

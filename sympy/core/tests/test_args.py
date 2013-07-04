@@ -725,7 +725,7 @@ def test_sympy__stats__crv_types__ChiDistribution():
 
 def test_sympy__stats__crv_types__ChiNoncentralDistribution():
     from sympy.stats.crv_types import ChiNoncentralDistribution
-    assert _test_args(ChiNoncentralDistribution(1,1))
+    assert _test_args(ChiNoncentralDistribution(1, 1))
 
 
 def test_sympy__stats__crv_types__ChiSquaredDistribution():
@@ -2756,9 +2756,8 @@ def test_sympy__tensor__tensor__TensMul():
     sym = TensorSymmetry(get_symmetric_group_sgs(1))
     S1 = TensorType([Lorentz], sym)
     p = S1('p')
-    free, dum =  TensMul.from_indices(a)
+    free, dum = TensMul.from_indices(a)
     assert _test_args(TensMul(S.One, [p], free, dum))
-
 
 
 @XFAIL

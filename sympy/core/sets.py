@@ -680,6 +680,7 @@ class Interval(Set, EvalfMixin):
     def free_symbols(self):
         return self.start.free_symbols | self.end.free_symbols
 
+
 class Union(Set, EvalfMixin):
     """
     Represents a union of sets as a Set.
@@ -1158,7 +1159,6 @@ class FiniteSet(Set, EvalfMixin):
 
             if len(args) == 0:
                 return EmptySet()
-
 
         args = frozenset(args)  # remove duplicates
         obj = Basic.__new__(cls, *args)

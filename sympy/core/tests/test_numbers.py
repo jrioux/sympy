@@ -438,6 +438,7 @@ def test_Float():
 
     assert Float(decimal.Decimal('0.1'), 3) == Float('.1', 3)
 
+
 def test_Float_eval():
     a = Float(3.2)
     assert (a**2).is_Float
@@ -944,6 +945,7 @@ def test_int():
     assert int(E) == 2
     assert int(GoldenRatio) == 1
 
+
 def test_long():
     a = Rational(5)
     assert long(a) == 5
@@ -954,6 +956,7 @@ def test_long():
     assert long(pi) == 3
     assert long(E) == 2
     assert long(GoldenRatio) == 1
+
 
 def test_real_bug():
     x = Symbol("x")
@@ -1373,6 +1376,7 @@ def test_3250():
     assert Float('23e3', '')._prec == 20
     assert Float('23000', '')._prec == 20
     assert Float('-23000', '')._prec == 20
+
 
 def test_mpf_norm():
     assert mpf_norm((1, 0, 1, 0), 10) == mpf('0')._mpf_
