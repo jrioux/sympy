@@ -6016,6 +6016,30 @@ def nth_power_roots_poly(f, n, *gens, **args):
         return result
 
 
+def _cancel_tuple(f, *gens, **args):
+    """
+    Helper function for `cancel`.
+    """
+    from sympy.core.exprtools import factor_terms
+    options.allowed_flags(args, ['polys'])
+    if not isinstance(f, (tuple, Tuple)):
+        raise ValueError('unexpected argument: %s' % f)
+    if len(f) != 2:
+        return factor_terms(f)
+    p, q = f
+    try:
+        (F, G), opt = parallel_poly_from_expr((p, q), *gens, **args)
+    except PolificationFailed:
+        return S.One, p, q
+
+    c, P, Q = F.cancel(G)
+
+    if not opt.polys:
+        return c, P.as_expr(), Q.as_expr()
+    else:
+        return c, P, Q
+
+
 @public
 def cancel(f, *gens, **args):
     """
@@ -6043,21 +6067,13 @@ def cancel(f, *gens, **args):
             return f
         f = factor_terms(f, radical=True)
         p, q = f.as_numer_denom()
-
-    elif len(f) == 2:
-        p, q = f
-    elif isinstance(f, Tuple):
-        return factor_terms(f)
+    elif isinstance(f, Basic):
+        return f
     else:
         raise ValueError('unexpected argument: %s' % f)
 
     try:
-        (F, G), opt = parallel_poly_from_expr((p, q), *gens, **args)
-    except PolificationFailed:
-        if not isinstance(f, (tuple, Tuple)):
-            return f
-        else:
-            return S.One, p, q
+        c, P, Q = _cancel_tuple((p, q), *gens, **args)
     except PolynomialError as msg:
         if f.is_commutative and not f.has(Piecewise):
             raise PolynomialError(msg)
@@ -6082,15 +6098,7 @@ def cancel(f, *gens, **args):
                     pass
             return f.xreplace(dict(reps))
 
-    c, P, Q = F.cancel(G)
-
-    if not isinstance(f, (tuple, Tuple)):
-        return c*(P.as_expr()/Q.as_expr())
-    else:
-        if not opt.polys:
-            return c, P.as_expr(), Q.as_expr()
-        else:
-            return c, P, Q
+    return c*(P.as_expr()/Q.as_expr())
 
 
 @public

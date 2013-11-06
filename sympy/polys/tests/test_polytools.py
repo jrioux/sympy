@@ -23,7 +23,7 @@ from sympy.polys.polytools import (
     intervals, refine_root, count_roots,
     real_roots, nroots, ground_roots,
     nth_power_roots_poly,
-    cancel, reduced, groebner,
+    cancel, reduced, groebner, _cancel_tuple,
     GroebnerBasis, is_zero_dimensional,
     _torational_factor_list)
 
@@ -2744,21 +2744,21 @@ def test_cancel():
 
     assert cancel(oo) == oo
 
-    assert cancel((2, 3)) == (1, 2, 3)
+    assert _cancel_tuple((2, 3)) == (1, 2, 3)
 
-    assert cancel((1, 0), x) == (1, 1, 0)
-    assert cancel((0, 1), x) == (1, 0, 1)
+    assert _cancel_tuple((1, 0), x) == (1, 1, 0)
+    assert _cancel_tuple((0, 1), x) == (1, 0, 1)
 
     f, g, p, q = 4*x**2 - 4, 2*x - 2, 2*x + 2, 1
     F, G, P, Q = [ Poly(u, x) for u in (f, g, p, q) ]
 
     assert F.cancel(G) == (1, P, Q)
-    assert cancel((f, g)) == (1, p, q)
-    assert cancel((f, g), x) == (1, p, q)
-    assert cancel((f, g), (x,)) == (1, p, q)
-    assert cancel((F, G)) == (1, P, Q)
-    assert cancel((f, g), polys=True) == (1, P, Q)
-    assert cancel((F, G), polys=False) == (1, p, q)
+    assert _cancel_tuple((f, g)) == (1, p, q)
+    assert _cancel_tuple((f, g), x) == (1, p, q)
+    assert _cancel_tuple((f, g), (x,)) == (1, p, q)
+    assert _cancel_tuple((F, G)) == (1, P, Q)
+    assert _cancel_tuple((f, g), polys=True) == (1, P, Q)
+    assert _cancel_tuple((F, G), polys=False) == (1, p, q)
 
     f = (x**2 - 2)/(x + sqrt(2))
 
@@ -2770,7 +2770,7 @@ def test_cancel():
     assert cancel(f) == f
     assert cancel(f, greedy=False) == x + sqrt(2)
 
-    assert cancel((x**2/4 - 1, x/2 - 1)) == (S(1)/2, x + 2, 1)
+    assert _cancel_tuple((x**2/4 - 1, x/2 - 1)) == (S(1)/2, x + 2, 1)
 
     assert cancel((x**2 - y)/(x - y)) == 1/(x - y)*(x**2 - y)
 
@@ -2789,17 +2789,17 @@ def test_cancel():
     F = Poly(x + a, x)
     G = Poly(1, x)
 
-    assert cancel((f, g)) == (1, F, G)
+    assert _cancel_tuple((f, g)) == (1, F, G)
 
     f = x**3 + (sqrt(2) - 2)*x**2 - (2*sqrt(2) + 3)*x - 3*sqrt(2)
     g = x**2 - 2
 
-    assert cancel((f, g), extension=True) == (1, x**2 - 2*x - 3, x - sqrt(2))
+    assert _cancel_tuple((f, g), extension=True) == (1, x**2 - 2*x - 3, x - sqrt(2))
 
     f = Poly(-2*x + 3, x)
     g = Poly(-x**9 + x**8 + x**6 - x**5 + 2*x**2 - 3*x + 1, x)
 
-    assert cancel((f, g)) == (1, -f, -g)
+    assert _cancel_tuple((f, g)) == (1, -f, -g)
 
     f = Poly(y, y, domain='ZZ(x)')
     g = Poly(1, y, domain='ZZ[x]')
